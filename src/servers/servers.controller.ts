@@ -12,11 +12,11 @@ import {
 import { ServerDto } from './dto/server.dto';
 import { ServersService } from './servers.service';
 import { Server } from './server.model';
-import { User } from 'src/users/user.model';
+import { User } from '../users/user.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { FilesServices } from 'src/utils/files/files-utils.service';
+import { FilesServices } from '../utils/files/files-utils.service';
 
 @Controller('servers')
 export class ServersController {

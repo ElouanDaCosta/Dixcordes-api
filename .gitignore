@@ -42,3 +42,4 @@ lerna-debug.log*
 
 # database files
 /database/
+.vscode/settings.json

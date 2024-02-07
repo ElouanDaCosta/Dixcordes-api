@@ -9,13 +9,13 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { UserDto } from 'src/users/dto/user.dto';
-import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/user.model';
-import { Public } from 'src/core/decorator/public.decorator';
+import { UserDto } from '../users/dto/user.dto';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/user.model';
+import { Public } from '../core/decorator/public.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { FilesServices } from 'src/utils/files/files-utils.service';
+import { FilesServices } from '../utils/files/files-utils.service';
 
 @Controller('users')
 export class UsersController {

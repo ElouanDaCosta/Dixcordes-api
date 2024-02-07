@@ -7,8 +7,8 @@ import {
   BelongsToMany,
   BeforeCreate,
 } from 'sequelize-typescript';
-import { ServerUser } from 'src/server-user/server-user.model';
-import { User } from 'src/users/user.model';
+import { ServerUser } from '../server-user/server-user.model';
+import { User } from '../users/user.model';
 
 @Table({ tableName: 'servers' })
 export class Server extends Model {

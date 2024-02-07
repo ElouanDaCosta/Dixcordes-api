@@ -1,18 +1,32 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../src/app/app.module';
+import { AuthModule } from '../src/auth/auth.module';
+import { MessagesGatewayModule } from '../src/messages-websocket/messages.gateway.module';
+import { ServersModule } from '../src/servers/servers.module';
+import { UsersModule } from '../src/users/users.module';
 
-describe('AppController (e2e)', () => {
+describe('App (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+    const moduleRef: TestingModule = await Test.createTestingModule({
+      imports: [
+        AppModule,
+        UsersModule,
+        AuthModule,
+        ServersModule,
+        MessagesGatewayModule,
+      ],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    app = moduleRef.createNestApplication();
+    app.init();
+  });
+
+  afterEach(async () => {
+    await app.close();
   });
 
   it('/ (GET)', () => {
@@ -20,5 +34,19 @@ describe('AppController (e2e)', () => {
       .get('/')
       .expect(200)
       .expect('Hello World!');
+  });
+
+  it('/auth/login (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: 'test@mail', password: 'testtest' })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.access_token).toBeDefined();
+      });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
