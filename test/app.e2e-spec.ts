@@ -36,10 +36,25 @@ describe('App (e2e)', () => {
       .expect('Hello World!');
   });
 
+  it('/users (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/users')
+      .send({
+        firstName: 'test',
+        lastName: 'testing',
+        email: 'test@mail.com',
+        password: 'testtest',
+      })
+      .expect(201);
+  });
+
   it('/auth/login (POST)', () => {
     return request(app.getHttpServer())
       .post('/auth/login')
-      .send({ email: 'test@mail', password: 'testtest' })
+      .send({
+        email: 'test@mail.com',
+        password: 'testtest',
+      })
       .expect(200)
       .expect((res) => {
         expect(res.body.access_token).toBeDefined();

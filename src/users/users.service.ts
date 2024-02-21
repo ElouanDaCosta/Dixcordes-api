@@ -44,10 +44,7 @@ export class UsersService {
       } else if (userDto.email) {
         const existingUser = await this.findOneByEmail(userDto.email);
         if (existingUser) {
-          throw new HttpException(
-            'email already exists',
-            HttpStatus.BAD_REQUEST,
-          );
+          throw new HttpException('email already exists', HttpStatus.CONFLICT);
         }
       }
       switch (userDto.password) {

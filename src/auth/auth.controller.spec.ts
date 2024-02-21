@@ -4,9 +4,11 @@ import { AuthService } from './auth.service';
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../users/user.model';
 import { createMemDB } from '../utils/testing-helpers/create.memdb';
+import { ServerUser } from '../server-user/server-user.model';
+import { Server } from '../servers/server.model';
 
 describe('AppController', () => {
-  let appController: AuthController;
+  let authService: AuthService;
   let memDb: Sequelize;
 
   // beforeEach(async () => {
@@ -19,15 +21,13 @@ describe('AppController', () => {
   // });
 
   beforeAll(async () => {
-    memDb = await createMemDB([User]);
+    memDb = await createMemDB([User, ServerUser, Server]);
   });
-
-  afterAll(() => memDb.close());
 
   describe('login', () => {
     it('should return a token', () => {
       return expect(
-        appController.signIn({
+        authService.signIn({
           email: 'test@mail.com',
           password: 'testtest',
           id: 0,

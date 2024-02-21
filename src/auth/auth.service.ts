@@ -25,10 +25,7 @@ export class AuthService {
           userDto.email,
         );
         if (!existingUser) {
-          throw new HttpException(
-            'email does not exist',
-            HttpStatus.BAD_REQUEST,
-          );
+          throw new HttpException('email does not exist', HttpStatus.NOT_FOUND);
         }
         const isMatch = await bcrypt.compare(
           userDto.password,
