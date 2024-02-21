@@ -9,7 +9,6 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User)
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
@@ -20,7 +19,8 @@ export class AuthService {
         throw new HttpException('email is required', HttpStatus.BAD_REQUEST);
       } else if (userDto.password === undefined || userDto.password === '') {
         throw new HttpException('password is required', HttpStatus.BAD_REQUEST);
-      } else if (userDto.email) {
+      }
+      if (userDto.email) {
         const existingUser = await this.usersService.findOneByEmail(
           userDto.email,
         );

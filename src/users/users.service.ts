@@ -7,7 +7,6 @@ import * as fs from 'fs';
 
 @Injectable()
 export class UsersService {
-  usersService: any;
   constructor(
     @InjectModel(User)
     private userModel: typeof User,
