@@ -10,7 +10,6 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     @InjectModel(User)
-    private userModel: typeof User,
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}

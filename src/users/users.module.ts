@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
+import { SequelizeModule, getModelToken } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -9,7 +9,16 @@ import { FilesServices } from '../utils/files/files-utils.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([User])],
-  providers: [UsersService, JwtService, ConfigService, FilesServices],
+  providers: [
+    UsersService,
+    JwtService,
+    ConfigService,
+    FilesServices,
+    {
+      provide: getModelToken(User),
+      useValue: User,
+    },
+  ],
   controllers: [UsersController],
   exports: [SequelizeModule],
 })
